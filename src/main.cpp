@@ -28,16 +28,18 @@ int main() {
   Vec v(2);
   v(0) = -1.2;
   v(1) = 1.0;
-  double tol = 1.e-6;
-  int maxiter = 4000;
 
   Mat m(2, 2);
   m.setIdentity();
 
-  auto solver = BFGS();
-  Vec res = solver.solve(v, m, f, grad, maxiter, tol);
+  auto solver = BFGS<Vec, Mat>();
+
+  solver.setMaxIterations(4000);
+  solver.setTolerance(1.e-6);
+  
+  Vec res = solver.solve(v, m, f, grad);
 
   std::cout << res << std::endl;
-  std::cout << "iterations: " << solver.getIters() << std::endl;
+  std::cout << "iterations: " << solver.iterations() << std::endl;
   return 0;
 }

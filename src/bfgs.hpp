@@ -1,24 +1,24 @@
 #pragma once
 
 #include <eigen3/Eigen/Eigen>
-#include <iostream>
 #include "common.hpp"
+#include "minimizer_base.hpp"
 
-class BFGS {
+template <typename V, typename M> class BFGS : public MinimizerBase<V, M> {
+  using Base = MinimizerBase<V, M>;
+  using Base::_iters;
+  using Base::_max_iters;
+  using Base::_tol;
+
 public:
   // V vector, M matrix
-  template <typename V, typename W, typename M>
-  V solve(V x, M B, VecFun<V,W> f, GradFun<V> &Gradient, int maxiter, double tol) {
+  V solve(V x, M B, VecFun<V, double> f, GradFun<V> &Gradient) override {
     Eigen::ConjugateGradient<M> solver;
 
-    for (iters = 0; iters < maxiter && Gradient(x).norm() > tol; ++iters) {
-      //TODO set solver parameters
+    for (_iters = 0; _iters < _max_iters && Gradient(x).norm() > _tol; ++_iters) {
       solver.compute(B);
-      if (solver.info() != Eigen::Success) {
-        std::cerr << "SOLVER ERROR, ABORTING" << std::endl;
-        // TODO throw error
-      }
-
+      check(solver.info() == Eigen::Success, "conjugate gradient solver error");
+     
       V p = solver.solve(-Gradient(x));
       double alpha = 1;
       
@@ -43,15 +43,10 @@ public:
     return x;
   }
 
-  int getIters() {
-    return iters;
-  }
-
 private:
   double c1 = 1e-4;
   double c2 = 0.9;
   double rho = 0.5;
   double armijo_max_iter = 20;
-  int iters = 0;
 };
 
