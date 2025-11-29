@@ -26,8 +26,8 @@ int main() {
   };
 
   Vec v(2);
-  v(0) = -1.2;
-  v(1) = 1.0;
+  v(0) = -1.5;
+  v(1) = 15.0;
 
   Mat m(2, 2);
   m.setIdentity();
@@ -35,7 +35,7 @@ int main() {
   auto solver = BFGS<Vec, Mat>();
 
   solver.setMaxIterations(4000);
-  solver.setTolerance(1.e-6);
+  solver.setTolerance(1.e-12);
   
   Vec res = solver.solve(v, m, f, grad);
 
