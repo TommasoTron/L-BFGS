@@ -24,8 +24,6 @@ public:
       V p = solver.solve(-Gradient(x));
       double alpha = 1.0;
       
-
-
       alpha = line_search(x, p, f, Gradient);
 
       V s = alpha * p;
@@ -79,10 +77,6 @@ double line_search(V x, V p, VecFun<V, double> &f, GradFun<V> &Gradient) {
           alpha= 5 * alpha;
         }
       }
-
-
-    
-
     }
     return alpha;
   }
