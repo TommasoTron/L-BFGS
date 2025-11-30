@@ -27,20 +27,17 @@ public:
     V p = -grad;
     V x_new = x;
 
-    V s = x; // initializatione a caso giusto per la dimensione
-    V y = grad;
+    V s, y;
 
-    for (_iters = 0; _iters < _max_iters && Gradient(x).norm() > _tol;
-         ++_iters) {
-
-      grad = Gradient(x);
+    for (_iters = 0; _iters < _max_iters && Gradient(x).norm() > _tol; ++_iters) {
       p = compute_direction(grad, s_list, y_list, rho_list);
 
       alpha_wolfe = this->line_search(x, p, f, Gradient);
 
       x_new = x + alpha_wolfe * p;
       V s = x_new - x;
-      V y = Gradient(x_new) - grad;
+      V grad_new = Gradient(x_new);
+      V y = grad_new - grad;
 
       x = x_new;
 
@@ -54,13 +51,13 @@ public:
         y_list.erase(y_list.begin());
         rho_list.erase(rho_list.begin());
       }
+      grad = grad_new;
     }
 
     return x;
   }
 
-  V compute_direction(V grad, std::vector<V> &s_list, std::vector<V> &y_list,
-                      std::vector<double> &rho_list) {
+  V compute_direction(V grad, const std::vector<V> &s_list, const std::vector<V> &y_list, const std::vector<double> &rho_list) {
     if (s_list.size() == 0) {
       return -grad;
     }
@@ -78,9 +75,9 @@ public:
 
     gamma = s_list.back().dot(y_list.back()) / y_list.back().dot(y_list.back());
 
-    M H0 = gamma * M::Identity(grad.size(), grad.size());
-
-    z = H0 * q;
+    // M H0 = gamma * M::Identity(grad.size(), grad.size());
+    // z = H0 * q;
+    z = gamma * q;
 
     for (size_t i = 0; i < s_list.size(); ++i) {
       double beta = rho_list[i] * y_list[i].dot(z);
