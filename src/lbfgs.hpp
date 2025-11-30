@@ -29,7 +29,11 @@ public:
 
     V s, y;
 
-    for (_iters = 0; _iters < _max_iters && Gradient(x).norm() > _tol; ++_iters) {
+    for (_iters = 0; _iters < _max_iters; ++_iters) {
+      if (grad.norm() < _tol) {
+        break;
+      }
+
       p = compute_direction(grad, s_list, y_list, rho_list);
 
       alpha_wolfe = this->line_search(x, p, f, Gradient);
