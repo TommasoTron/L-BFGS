@@ -8,7 +8,6 @@
 
 using Vec = Eigen::VectorXd;
 using Mat = Eigen::MatrixXd;
-
 int main() {
   VecFun<Vec, double> f = [](Vec v) {
     int n = v.size();
