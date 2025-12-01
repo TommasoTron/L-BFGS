@@ -8,7 +8,6 @@
 
 using Vec = Eigen::VectorXd;
 using Mat = Eigen::MatrixXd;
-
 int main() {
   // VecFun<Vec, double> f = [](Vec v) {
   //   int n = v.size();
@@ -44,7 +43,8 @@ int main() {
   };
   GradFun<Vec> grad = [](Vec v) {
     //Vec x = 2.0 * v;
-    return v * 2.0;
+    Vec x =  v * 2.0;
+    return x;
   };
   // VecFun<Vec, double> f = [](Vec v) { return v.squaredNorm(); };
   // GradFun<Vec> grad = [](Vec v) { return 2.0 * v; };

@@ -11,10 +11,11 @@ find_package(Eigen3 REQUIRED)
 include_directories(lib)
 
 add_executable(main.o src/main.cpp)
+add_executable(test.o tests/main.cpp)
 
 target_link_libraries(main.o Eigen3::Eigen)
 
-file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "src/*.hpp")
+file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "src/*.hpp" "tests/*.hpp" "tests/*.cpp")
 
 add_custom_target(format
     COMMAND clang_format -i ${SOURCE_FILES}
