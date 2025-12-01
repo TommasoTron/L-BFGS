@@ -30,7 +30,7 @@ protected:
   double _tol = 1.e-10;
   double armijo_max_iter = 20;
   double max_line_iters = 50;
-  size_t m = 5;
+  size_t m = 15;
   double alpha_wolfe = 1e-3;
   double c1 = 1e-4;
   double c2 = 0.9;
