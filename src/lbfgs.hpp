@@ -61,7 +61,7 @@ public:
     return x;
   }
 
-  V compute_direction(V grad, const std::vector<V> &s_list, const std::vector<V> &y_list, const std::vector<double> &rho_list) {
+  V compute_direction(const V& grad, const std::vector<V> &s_list, const std::vector<V> &y_list, const std::vector<double> &rho_list) {
     if (s_list.size() == 0) {
       return -grad;
     }
