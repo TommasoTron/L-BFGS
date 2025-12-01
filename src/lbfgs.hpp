@@ -27,8 +27,6 @@ public:
     V p = -grad;
     V x_new = x;
 
-    V s, y;
-
     for (_iters = 0; _iters < _max_iters; ++_iters) {
       if (grad.norm() < _tol) {
         break;
@@ -66,7 +64,7 @@ public:
       return -grad;
     }
 
-    V z = V::Zero(grad.size()); // random initialization
+    V z = V::Zero(grad.size());
     V q = grad;
     std::vector<double> alpha_list(s_list.size());
 

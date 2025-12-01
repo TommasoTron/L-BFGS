@@ -46,6 +46,8 @@ int main() {
     //Vec x = 2.0 * v;
     return v * 2.0;
   };
+  // VecFun<Vec, double> f = [](Vec v) { return v.squaredNorm(); };
+  // GradFun<Vec> grad = [](Vec v) { return 2.0 * v; };
 
   int n = 15;
   Vec v(n);

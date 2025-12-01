@@ -37,7 +37,7 @@ protected:
   double rho = 0.5;
 
   double line_search(V x, V p, VecFun<V, double> &f, GradFun<V> &Gradient) {
-    
+    double f_old = f(x);
     double grad_f_old = Gradient(x).dot(p);
 
     double inf = std::numeric_limits<double>::infinity();
@@ -49,27 +49,25 @@ protected:
     for (int i = 0; i < max_line_iters; ++i) {
       V x_new = x + alpha * p;
       double f_new = f(x_new);
-      double grad_f_new = Gradient(x_new).dot(p);
+      if (f_new > f_old + c1 * alpha * grad_f_old) {
+        alpha_max = alpha;
+        alpha = rho * (alpha_min + alpha_max);
+        continue;
+      }
+      double grad_f_new_dot_p = Gradient(x_new).dot(p);
 
-      for (int armijo_iter = 0; armijo_iter < armijo_max_iter; ++armijo_iter) {
-        if (f_new > f(x) + c1 * alpha * grad_f_old) {
-          alpha_max = alpha;
+      if (grad_f_new_dot_p < c2 * grad_f_old) {
+        alpha_min = alpha;
+        if (alpha_max == inf)
+          alpha *= 2;
+        else
           alpha = rho * (alpha_min + alpha_max);
-        } else {
-          break;
-        }
-      }
 
-      if (grad_f_new >= c2 * grad_f_old) {
-        if (alpha_max < inf) {
-          alpha_min = alpha;
-          alpha_max = rho * (alpha_min + alpha_max);
-        } else {
-          alpha_min = alpha;
-          alpha = 5 * alpha;
-        }
+        continue;
       }
+      return alpha;
     }
+    // Fallback: If no alpha is found, return the last one
     return alpha;
   }
 };
