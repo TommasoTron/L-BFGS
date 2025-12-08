@@ -42,7 +42,14 @@ cmake ..
 make
 ```
 #### Run
-To run the project from the `build` directory:
+To run the test from the `build` directory:
 ```zsh
-./main.o
+./test.o
 ```
+
+#### Documentation
+The project uses Doxygen to generate the API documentation from the comments in the source code.
+
+
+
+

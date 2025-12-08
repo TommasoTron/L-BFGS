@@ -42,7 +42,7 @@ void test_rastrigin(minimizerPtr& solver) {
 
     solver->setMaxIterations(5000);
     solver->setTolerance(1.e-9);
-        solver->setInitialHessian(m);
+    solver->setInitialHessian(m);
 
     Vec result = solver->solve(v, f, grad);
 
