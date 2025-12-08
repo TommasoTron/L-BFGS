@@ -47,9 +47,8 @@ To run the test from the `build` directory:
 ./test.o
 ```
 
-#### Documentation
-The project uses Doxygen to generate the API documentation from the comments in the source code.
+### Documentation
 
+The full API documentation generated with Doxygen is available here:
 
-
-
+👉 [**Open the documentation**](https://amsc-25-26.github.io/lfbgs-1-lbfgs/)
