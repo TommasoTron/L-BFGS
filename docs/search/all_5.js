@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['iterations_0',['iterations',['../classMinimizerBase.html#a6adf72133a7412a671d9815674cfa15d',1,'MinimizerBase']]]
+  ['gradfun_0',['GradFun',['../common_8hpp.html#a2272f95fed28a31b6e1e1d8c4e4ae07a',1,'common.hpp']]]
 ];

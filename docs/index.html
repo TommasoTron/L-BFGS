@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: Main Page</title>
+<title>My Project: Problem statement</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,10 +68,72 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">My Project Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">Problem statement </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a> We consider the classical unconstrained non-linear optimization problem</p>
+<p>$$ \min_{x \in \mathbb{R}^n} f(x), $$</p>
+<p>where $ f : \mathbb{R}^n \to \mathbb{R} $ is assumed to be sufficiently smooth (typically at least twice continuously differentiable). A standard second-order method for this problem is <b>Newton’s method</b>, whose iteration can be written as</p>
+<p>$$ H_k \Delta_k = -\nabla f(x_k), \quad x_{k+1} = x_k + \Delta_k, $$</p>
+<p>where $H_k$ is the Hessian of $f$ at $x_k$ and $\nabla f(x_k)$ is the gradient. Newton’s method can achieve quadratic convergence near the solution but it has some drawbacks:</p>
+<ul>
+<li>computing and storing the full Hessian $H_k \in \mathbb{R}^{n \times n}$ is expensive for large $n$;</li>
+<li>solving a linear system with $H_k$ at each iteration is also costly;</li>
+<li>global convergence typically requires safeguards, such as <b>line-search</b> or <b>trust-region</b> strategies.</li>
+</ul>
+<p>For moderately large or large-scale problems, forming and storing the full Hessian quickly becomes prohibitive, and more efficient approaches are required. <b>Quasi-Newton methods</b> address this by building and updating an approximation of the Hessian (or its inverse) using only gradient information, while still retaining superlinear convergence under suitable conditions.</p>
+<p>This project focuses on two such methods: <b><a class="el" href="classBFGS.html" title="BFGS (Broyden–Fletcher–Goldfarb–Shanno) minimizer.">BFGS</a></b> and <b>L-BFGS</b>.</p>
+<hr  />
+<h1><a class="anchor" id="autotoc_md2"></a>
+Algorithms</h1>
+<p>This project implements/analyzes Quasi-Newton methods for unconstrained non-linear optimization.</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+BFGS (Broyden–Fletcher–Goldfarb–Shanno)</h2>
+<p><a class="el" href="classBFGS.html" title="BFGS (Broyden–Fletcher–Goldfarb–Shanno) minimizer.">BFGS</a> is an iterative method for solving unconstrained non-linear optimization problems. As a Quasi-Newton method, it approximates the Hessian matrix of the objective function using gradient evaluations.</p>
+<ul>
+<li><b>Mechanism:</b> It maintains a full dense approximation of the (inverse) Hessian matrix and updates it at each step so that the <b>secant equation</b> is satisfied. The search direction is obtained by solving a linear system involving this matrix.</li>
+<li><b>Performance:</b> It offers superlinear convergence under standard assumptions and is generally robust in practice.</li>
+<li><b>Memory cost:</b> $O(n^2)$, where $n$ is the number of variables. This makes it suitable for small to medium-sized problems, where storing an $n \times n$ matrix is still feasible.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md4"></a>
+L-BFGS (Limited-memory BFGS)</h2>
+<p>L-BFGS is an optimization algorithm in the family of Quasi-Newton methods that approximates the <a class="el" href="classBFGS.html" title="BFGS (Broyden–Fletcher–Goldfarb–Shanno) minimizer.">BFGS</a> algorithm using a limited amount of memory.</p>
+<ul>
+<li><b>Mechanism:</b> Instead of storing the full $n \times n$ inverse Hessian matrix, it stores only a small number of vector pairs $(s_k, y_k)$ that implicitly represent the quasi-Newton approximation. It maintains a history of the past $m$ updates (where $m$ is typically small, e.g., 5–20) and uses the <b>two-loop recursion</b> to apply the inverse Hessian approximation to a vector.</li>
+<li><b>Performance:</b> It enjoys similar convergence properties to full <a class="el" href="classBFGS.html" title="BFGS (Broyden–Fletcher–Goldfarb–Shanno) minimizer.">BFGS</a> in many cases, though it can be slightly less robust on very ill-conditioned problems.</li>
+<li><b>Memory cost:</b> $O(mn)$, which makes it well suited for large-scale problems with thousands or millions of variables, as the memory footprint grows only linearly with the problem dimension.</li>
+</ul>
+<hr  />
+<h2><a class="anchor" id="autotoc_md6"></a>
+Organization of the code</h2>
+<p>The directory structure is as follows:</p>
+<div class="fragment"><div class="line">./Project</div>
+<div class="line">  ├── build/</div>
+<div class="line">  ├── lib/</div>
+<div class="line">  ├── paper/</div>
+<div class="line">  └── src/</div>
+</div><!-- fragment --><ul>
+<li><code>build</code> contains the output of CMAKE</li>
+<li><code>lib</code> contains the external libraries</li>
+<li><code>paper</code>containes the academic literature provided</li>
+<li><code>src</code> contains all the C++ code to be compiled</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Compiling</h2>
+<p>To compile we use CMAKE, from the <code>Project</code> directory run:</p>
+<div class="fragment"><div class="line">mkdir build</div>
+<div class="line">cd build</div>
+<div class="line">cmake ..</div>
+<div class="line">make</div>
+</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md8"></a>
+Run</h3>
+<p>To run the test from the <code>build</code> directory: </p><div class="fragment"><div class="line">./test.o</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
+Documentation</h2>
+<p>The full API documentation generated with Doxygen is available here:</p>
+<p>👉 <a href="https://amsc-25-26.github.io/lfbgs-1-lbfgs/"><b>Open the documentation</b></a> </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
