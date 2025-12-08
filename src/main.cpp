@@ -55,8 +55,9 @@ int main() {
   auto assert_solver = [&](minimizerPtr &solver, std::string name) {
     solver->setMaxIterations(4000);
     solver->setTolerance(1.e-12);
+    solver->setInitialHessian(m);
 
-    Vec result = solver->solve(v, m, f, grad);
+    Vec result = solver->solve(v, f, grad);
     std::cout << "========" << name << "========" << std::endl;
     std::cout << "computed result: " << std::endl
               << result << std::endl

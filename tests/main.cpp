@@ -42,8 +42,9 @@ void test_rastrigin(minimizerPtr& solver) {
 
     solver->setMaxIterations(5000);
     solver->setTolerance(1.e-9);
+        solver->setInitialHessian(m);
 
-    Vec result = solver->solve(v, m, f, grad);
+    Vec result = solver->solve(v, f, grad);
 
     check((grad(result).norm() <= 1.e-8), "should converge on rastrigin function");
     
@@ -101,8 +102,9 @@ void test_rosenbrock(minimizerPtr& solver) {
 
     solver->setMaxIterations(4000);
     solver->setTolerance(1.e-12);
+    solver->setInitialHessian(m);
 
-    Vec result = solver->solve(v, m, f, grad);
+    Vec result = solver->solve(v, f, grad);
 
     check((grad(result).norm() <= 1.e-10), "should converge on rosenbrock function");
     
@@ -140,7 +142,6 @@ void test_ackley(minimizerPtr& solver) {
 
         double term_exp_cos = std::exp(sum2 / n);
         double term_exp_sqrt = std::exp(-0.2 * std::sqrt(sum1 / n));
-        double factor_sqrt_inv = 1.0 / std::sqrt(sum1 / n);
 
         for (int i = 0; i < n; ++i) {
             double grad_sqrt = (v(i) / (n * std::sqrt(sum1 / n)));
@@ -162,8 +163,9 @@ void test_ackley(minimizerPtr& solver) {
 
     solver->setMaxIterations(4000);
     solver->setTolerance(1.e-10);
+    solver->setInitialHessian(m);
 
-    Vec result = solver->solve(v, m, f, grad);
+    Vec result = solver->solve(v, f, grad);
 
     check((grad(result).norm() <= 1.e-9), "should converge on ackley function");
     

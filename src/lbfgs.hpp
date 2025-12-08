@@ -32,13 +32,12 @@ public:
    * line search that satisfies Wolfe conditions.
    *
    * @param x Initial guess for the minimizer (passed by value).
-   * @param b 
    * @param f Objective function to minimize, mapping V → double.
    * @param Gradient Function returning the gradient ∇f(x), mapping V → V.
    *
    * @return The final estimate of the minimizer.
    */
-  V solve(V x, M b, VecFun<V, double> &f, GradFun<V> &Gradient) override {
+  V solve(V x, VecFun<V, double> &f, GradFun<V> &Gradient) override {
 
     std::vector<V> s_list;          ///< Stored displacement vectors s_k = x_{k+1} − x_k.
     std::vector<V> y_list;          ///< Stored gradient differences y_k = ∇f_{k+1} − ∇f_k.

@@ -51,6 +51,13 @@ public:
    */
   void setTolerance(double tol) noexcept { _tol = tol; }
 
+    /**
+   * @brief Set the initial guess for the Hessian matrix
+   *
+   * @param b Initial Hessian guess.
+   */
+  void setInitialHessian(M b) noexcept { _B = b; }
+
   /**
    * @brief Solve the minimization problem given an initial guess.
    *
@@ -58,13 +65,12 @@ public:
    * inheriting from this base class.
    *
    * @param x Initial guess for the minimizer; can be used as in/out.
-   * @param b Additional problem data (e.g. right-hand side vector/matrix).
    * @param f Objective function to minimize, mapping V -> double.
    * @param Gradient Function object returning the gradient of f, mapping V -> V.
    *
    * @return Approximate minimizer of the function f.
    */
-  virtual V solve(V x, M b, VecFun<V, double> &f, GradFun<V> &Gradient) = 0;
+  virtual V solve(V x, VecFun<V, double> &f, GradFun<V> &Gradient) = 0;
 
 protected:
   /// Maximum number of iterations allowed in the optimization loop.
@@ -75,6 +81,9 @@ protected:
 
   /// Tolerance used as stopping criterion.
   double _tol = 1.e-10;
+
+  /// Hessian guess
+  M _B;
 
   /// Maximum number of iterations allowed in Armijo line search (if used).
   double armijo_max_iter = 20;
@@ -96,6 +105,7 @@ protected:
 
   /// Contraction factor used when shrinking the step size.
   double rho = 0.5;
+
 
   /**
    * @brief Perform a line search to find a suitable step length alpha.
