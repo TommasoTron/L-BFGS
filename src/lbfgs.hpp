@@ -24,8 +24,6 @@ class LBFGS : public MinimizerBase<V, M> {
   using Base::m;
 
 public:
-  // TODO: allow passing an initial Hessian approximation (currently unused)
-
   /**
    * @brief Perform the L-BFGS optimization on the objective function f.
    *
@@ -34,7 +32,7 @@ public:
    * line search that satisfies Wolfe conditions.
    *
    * @param x Initial guess for the minimizer (passed by value).
-   * @param b Additional problem data (currently unused).
+   * @param b 
    * @param f Objective function to minimize, mapping V → double.
    * @param Gradient Function returning the gradient ∇f(x), mapping V → V.
    *
