@@ -39,13 +39,13 @@ public:
    */
   V solve(V x, VecFun<V, double> &f, GradFun<V> &Gradient) override {
 
-    std::vector<V> s_list;          ///< Stored displacement vectors s_k = x_{k+1} − x_k.
-    std::vector<V> y_list;          ///< Stored gradient differences y_k = ∇f_{k+1} − ∇f_k.
-    std::vector<double> rho_list;   ///< Scalars ρ_k = 1 / (y_kᵀ s_k).
+    std::vector<V> s_list;        ///< Stored displacement vectors s_k = x_{k+1} − x_k.
+    std::vector<V> y_list;        ///< Stored gradient differences y_k = ∇f_{k+1} − ∇f_k.
+    std::vector<double> rho_list; ///< Scalars ρ_k = 1 / (y_kᵀ s_k).
 
-    V grad = Gradient(x);           ///< Current gradient.
-    V p = -grad;                    ///< Initial descent direction.
-    V x_new = x;                    ///< Updated point.
+    V grad = Gradient(x); ///< Current gradient.
+    V p = -grad;          ///< Initial descent direction.
+    V x_new = x;          ///< Updated point.
 
     for (_iters = 0; _iters < _max_iters; ++_iters) {
 
@@ -103,7 +103,7 @@ public:
    *
    * @return Search direction p_k, typically a descent direction.
    */
-  V compute_direction(const V& grad,
+  V compute_direction(const V &grad,
                       const std::vector<V> &s_list,
                       const std::vector<V> &y_list,
                       const std::vector<double> &rho_list) {

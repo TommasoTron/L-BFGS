@@ -3,22 +3,17 @@ project(MyProject)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_compile_options(-Wall -Wextra)
 
 find_package(Eigen3 REQUIRED)
 
-include_directories(lib)
-
 add_executable(main.o src/main.cpp)
 add_executable(test.o tests/main.cpp)
 
-target_link_libraries(main.o Eigen3::Eigen)
+target_link_libraries(main.o PRIVATE Eigen3::Eigen)
+target_link_libraries(test.o PRIVATE Eigen3::Eigen)
 
-file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "src/*.hpp" "tests/*.hpp" "tests/*.cpp")
-
-add_custom_target(format
-    COMMAND clang_format -i ${SOURCE_FILES}
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    COMMENT "Formattazione del codice con clang-format..."
-)
+target_include_directories(main.o PRIVATE ${CMAKE_SOURCE_DIR}/lib)
+target_include_directories(test.o PRIVATE ${CMAKE_SOURCE_DIR}/lib)

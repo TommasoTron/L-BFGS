@@ -1,11 +1,11 @@
 #include "../src/minimizer_base.hpp"
+#include <chrono>
 #include <functional>
+#include <iostream>
 #include <map>
 #include <memory>
 #include <string>
 #include <utility>
-#include <iostream>
-#include <chrono>
 
 namespace Tests {
 
@@ -38,7 +38,7 @@ public:
     impls = std::map<std::string, minimizerPtr>();
     tests = std::vector<std::pair<std::string, testFunction>>();
   }
-  
+
   /**
    * @brief Register a minimizer implementation in the suite.
    *

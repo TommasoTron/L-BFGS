@@ -33,3 +33,4 @@
 
 .DS_STORE
 build/
+.vscode/

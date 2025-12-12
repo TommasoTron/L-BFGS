@@ -19,10 +19,10 @@
 template <typename V, typename M>
 class BFGS : public MinimizerBase<V, M> {
   using Base = MinimizerBase<V, M>;
+  using Base::_B;
   using Base::_iters;
   using Base::_max_iters;
   using Base::_tol;
-  using Base::_B;
 
 public:
   /**
@@ -63,16 +63,16 @@ public:
       alpha = this->line_search(x, p, f, Gradient);
 
       // Step and new iterate
-      V s = alpha * p;          ///< s_k = x_{k+1} − x_k.
+      V s = alpha * p; ///< s_k = x_{k+1} − x_k.
       V x_next = x + s;
 
       // Gradient difference
-      V y = Gradient(x_next) - Gradient(x);  ///< y_k = ∇f_{k+1} − ∇f_k.
+      V y = Gradient(x_next) - Gradient(x); ///< y_k = ∇f_{k+1} − ∇f_k.
 
       // BFGS update: B_{k+1} = B_k + (y yᵀ)/(yᵀ s) − (B s sᵀ B)/(sᵀ B s)
       M b_prod = _B * s;
       _B = _B + (y * y.transpose()) / (y.transpose() * s) -
-          (b_prod * b_prod.transpose()) / (s.transpose() * _B * s);
+           (b_prod * b_prod.transpose()) / (s.transpose() * _B * s);
 
       // Move to the next iterate
       x = x_next;
