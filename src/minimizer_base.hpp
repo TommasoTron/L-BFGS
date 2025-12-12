@@ -51,13 +51,14 @@ public:
    */
   void setTolerance(double tol) noexcept { _tol = tol; }
 
-    /**
+  /**
    * @brief Set the initial guess for the Hessian matrix
    *
    * @param b Initial Hessian guess.
    */
   void setInitialHessian(M b) noexcept { _B = b; }
 
+  void setHessian(const HessFun<V, M> &hessFun) noexcept { _hessFun = hessFun; }
   /**
    * @brief Solve the minimization problem given an initial guess.
    *
@@ -85,6 +86,8 @@ protected:
   /// Hessian guess
   M _B;
 
+  HessFun<V, M> _hessFun;
+
   /// Maximum number of iterations allowed in Armijo line search (if used).
   double armijo_max_iter = 20;
 
@@ -105,7 +108,6 @@ protected:
 
   /// Contraction factor used when shrinking the step size.
   double rho = 0.5;
-
 
   /**
    * @brief Perform a line search to find a suitable step length alpha.
