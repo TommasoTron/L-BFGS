@@ -5,6 +5,15 @@
 #include <eigen3/Eigen/Eigen>
 #include <limits>
 
+template <typename M>
+constexpr bool isSparse = std::is_base_of_v<Eigen::SparseMatrixBase<M>, M>;
+
+template <typename M>
+using DefaultSolverT = typename std::conditional<
+    isSparse<M>,
+    Eigen::ConjugateGradient<M>,
+    Eigen::LDLT<M>>::type;
+
 /**
  * @brief BFGS (Broyden–Fletcher–Goldfarb–Shanno) minimizer.
  *
@@ -15,8 +24,9 @@
  *
  * @tparam V Vector type (e.g. Eigen::VectorXd).
  * @tparam M Matrix type (e.g. Eigen::MatrixXd).
+ * @tparam Solver if specified can be used to specify solver type  (e.g. Eigen::ConjugateGradient) and must must be passed to the constructor
  */
-template <typename V, typename M>
+template <typename V, typename M, typename Solver=DefaultSolverT<M>>
 class BFGS : public MinimizerBase<V, M> {
   using Base = MinimizerBase<V, M>;
   using Base::_B;
@@ -24,7 +34,38 @@ class BFGS : public MinimizerBase<V, M> {
   using Base::_max_iters;
   using Base::_tol;
 
+protected:
+  static constexpr bool UseDefaultSolver = std::is_same_v<Solver, DefaultSolverT<M>>;
+
+  /*
+    this sheningan is used because if the solver template parameter is not specified
+    we would like to instantiate a default one, so it should be a solver type such as
+    Eigen::ConjugateGradient<M>
+
+    if the solver is not specified it must be passed to the constructor as reference,
+    in this way the user specifies all the needed parameters when initializing the
+    constructor. Seems that eigen doesn't allow copy constructors so the reference is
+    needed.
+   */
+  using SolverT = typename std::conditional <
+    UseDefaultSolver,
+    Solver,
+    Solver&
+    >::type;
+private:
+  SolverT _solver;
+
 public:
+  
+  BFGS() requires(UseDefaultSolver) {
+    _solver = DefaultSolverT<M>();
+  }
+
+  BFGS(Solver& solver)
+    requires(!UseDefaultSolver) : _solver(solver)
+  {
+  }
+  
   /**
    * @brief Run the BFGS optimization method.
    *
@@ -45,18 +86,16 @@ public:
    * @return Final estimate of the minimizer.
    */
   V solve(V x, VecFun<V, double> &f, GradFun<V> &Gradient) override {
-    /// Conjugate gradient solver used to solve B p = -∇f(x).
-    Eigen::ConjugateGradient<M> solver;
-
+  
     for (_iters = 0; _iters < _max_iters && Gradient(x).norm() > _tol;
          ++_iters) {
 
       // Factorize B and check success
-      solver.compute(_B);
-      check(solver.info() == Eigen::Success, "conjugate gradient solver error");
+      _solver.compute(_B);
+      check(_solver.info() == Eigen::Success, "conjugate gradient solver error");
 
       // Search direction: p = -B^{-1} ∇f(x)
-      V p = solver.solve(-Gradient(x));
+      V p = _solver.solve(-Gradient(x));
 
       // Line search to determine step length alpha
       double alpha = 1.0;
@@ -81,5 +120,4 @@ public:
     return x;
   }
 
-private:
 };

@@ -20,10 +20,10 @@ namespace Tests {
  * @tparam V Vector type used by the minimizers (e.g. Eigen::VectorXd).
  * @tparam M Matrix type used by the minimizers (e.g. Eigen::MatrixXd).
  */
-template <typename V, typename M>
+  template <typename V, typename M>
 class TestSuite {
   /// Shared pointer to a generic minimizer implementation.
-  using minimizerPtr = std::shared_ptr<MinimizerBase<V, M>>;
+    using minimizerPtr = std::shared_ptr<MinimizerBase<V, M>>;
   /// Type of a test function: takes a minimizer instance by reference.
   using testFunction = std::function<void(minimizerPtr &)>;
 

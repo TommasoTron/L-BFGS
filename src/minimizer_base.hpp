@@ -1,20 +1,29 @@
 #pragma once
 
 #include "common.hpp"
+#include <eigen3/Eigen/Cholesky>
 #include <eigen3/Eigen/Eigen>
+#include <eigen3/Eigen/IterativeLinearSolvers>
+#include <type_traits>
+
 
 /**
  * @brief Base class for iterative minimization algorithms.
  *
  * @tparam V Type used for vectors (e.g. Eigen::VectorXd).
  * @tparam M Type used for matrices (e.g. Eigen::MatrixXd).
+ * @tparam Solver type used for solver (e.g. Eigen::ConjugateGradient)
  */
 template <typename V, typename M>
 class MinimizerBase {
+private:
+    
+ 
 public:
   /// Virtual destructor to allow proper cleanup in derived classes.
   virtual ~MinimizerBase() = default;
 
+   
   /**
    * @brief Get the number of iterations performed by the last solve().
    *
@@ -109,6 +118,7 @@ protected:
   /// Contraction factor used when shrinking the step size.
   double rho = 0.5;
 
+
   /**
    * @brief Perform a line search to find a suitable step length alpha.
    *
@@ -165,4 +175,6 @@ protected:
     // Fallback: If no alpha is found, return the last one
     return alpha;
   }
+
+
 };

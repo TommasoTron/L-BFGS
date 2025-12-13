@@ -1,6 +1,8 @@
 #include "test.hpp"
 #include <iostream>
 
+#include <eigen3/unsupported/Eigen/IterativeSolvers>
+
 #include "../src/bfgs.hpp"
 #include "../src/common.hpp"
 #include "../src/lbfgs.hpp"
@@ -8,7 +10,9 @@
 
 using Vec = Eigen::VectorXd;
 using Mat = Eigen::MatrixXd;
+
 using minimizerPtr = std::shared_ptr<MinimizerBase<Vec, Mat>>;
+
 
 void test_rastrigin(minimizerPtr &solver) {
 
@@ -43,7 +47,7 @@ void test_rastrigin(minimizerPtr &solver) {
     return H;
   };
 
-  int n = 5;
+  int n = 500;
 
   Vec v(n);
   for (int i = 0; i < n; ++i)
@@ -260,10 +264,17 @@ int main() {
   minimizerPtr lbfgs = std::make_shared<LBFGS<Vec, Mat>>();
   minimizerPtr newton = std::make_shared<Newton<Vec, Mat>>();
 
+  using GMRES_Solver = Eigen::GMRES<Mat>;
+  GMRES_Solver solver = GMRES_Solver();
+  solver.setTolerance(1.e-12);
+  solver.setMaxIterations(10000);
+  auto bfgs_gmres = std::make_shared<BFGS<Vec,Mat,GMRES_Solver>>((solver));
+
   auto suite = Tests::TestSuite<Vec, Mat>();
 
   suite.addImplementation(bfgs, "BFGS");
   suite.addImplementation(lbfgs, "LBFGS");
+  suite.addImplementation(bfgs_gmres, "BFGS + GMRES");
   suite.addImplementation(newton, "Newton");
 
   suite.addTest("rosenbrock function", test_rosenbrock);
