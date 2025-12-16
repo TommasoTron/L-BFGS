@@ -27,8 +27,6 @@ This project focuses on two such methods: **BFGS** and **L-BFGS**.
 
 ## Algorithms
 
-This project implements/analyzes Quasi-Newton methods for unconstrained non-linear optimization.
-
 ### BFGS (Broyden–Fletcher–Goldfarb–Shanno)
 
 BFGS is an iterative method for solving unconstrained non-linear optimization problems. As a Quasi-Newton method, it approximates the Hessian matrix of the objective function using gradient evaluations.
@@ -148,6 +146,7 @@ All tests are implemented in [tests/main.cpp](tests/main.cpp) and use a flexible
 
 The table below summarizes the performance of the four solvers across the three benchmark functions:
 
+
 | Function | Solver | Time (μs) | Iterations | Tolerance |
 |----------|--------|-----------|-----------|-----------|
 | **Rosenbrock** | BFGS | 2,728 | 52 | $10^{-12}$ |
@@ -162,6 +161,8 @@ The table below summarizes the performance of the four solvers across the three 
 | | BFGS + GMRES | **45,107** | 1 | $10^{-9}$ |
 | | L-BFGS | **12,260** | 1 | $10^{-9}$ |
 | | Newton | 647,068 | 3 | $10^{-9}$ |
+
+*note*: the default BFGS implementation uses Conjugate Gradient under the hood
 
 **Key Observations:**
 
