@@ -3,7 +3,6 @@
 #include "common.hpp"
 #include "minimizer_base.hpp"
 #include <eigen3/Eigen/Eigen>
-#include <limits>
 
 /**
  * @brief Newton minimizer (full Newton) for unconstrained optimization.

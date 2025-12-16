@@ -3,7 +3,6 @@
 #include "common.hpp"
 #include "minimizer_base.hpp"
 #include <eigen3/Eigen/Eigen>
-#include <limits>
 
 template <typename M>
 constexpr bool isSparse = std::is_base_of_v<Eigen::SparseMatrixBase<M>, M>;
@@ -26,7 +25,7 @@ using DefaultSolverT = typename std::conditional<
  * @tparam M Matrix type (e.g. Eigen::MatrixXd).
  * @tparam Solver if specified can be used to specify solver type  (e.g. Eigen::ConjugateGradient) and must must be passed to the constructor
  */
-template <typename V, typename M, typename Solver=DefaultSolverT<M>>
+template <typename V, typename M, typename Solver = DefaultSolverT<M>>
 class BFGS : public MinimizerBase<V, M> {
   using Base = MinimizerBase<V, M>;
   using Base::_B;
@@ -47,25 +46,24 @@ protected:
     constructor. Seems that eigen doesn't allow copy constructors so the reference is
     needed.
    */
-  using SolverT = typename std::conditional <
-    UseDefaultSolver,
-    Solver,
-    Solver&
-    >::type;
+  using SolverT = typename std::conditional<
+      UseDefaultSolver,
+      Solver,
+      Solver &>::type;
+
 private:
   SolverT _solver;
 
 public:
-  
-  BFGS() requires(UseDefaultSolver) {
+  BFGS()
+  requires(UseDefaultSolver) {
     _solver = DefaultSolverT<M>();
   }
 
-  BFGS(Solver& solver)
-    requires(!UseDefaultSolver) : _solver(solver)
-  {
+  BFGS(Solver &solver)
+  requires(!UseDefaultSolver) : _solver(solver) {
   }
-  
+
   /**
    * @brief Run the BFGS optimization method.
    *
@@ -86,7 +84,7 @@ public:
    * @return Final estimate of the minimizer.
    */
   V solve(V x, VecFun<V, double> &f, GradFun<V> &Gradient) override {
-  
+
     for (_iters = 0; _iters < _max_iters && Gradient(x).norm() > _tol;
          ++_iters) {
 
@@ -119,5 +117,4 @@ public:
 
     return x;
   }
-
 };

@@ -13,7 +13,6 @@ using Mat = Eigen::MatrixXd;
 
 using minimizerPtr = std::shared_ptr<MinimizerBase<Vec, Mat>>;
 
-
 void test_rastrigin(minimizerPtr &solver) {
 
   VecFun<Vec, double> f = [](Vec v) {
@@ -268,7 +267,7 @@ int main() {
   GMRES_Solver solver = GMRES_Solver();
   solver.setTolerance(1.e-12);
   solver.setMaxIterations(10000);
-  auto bfgs_gmres = std::make_shared<BFGS<Vec,Mat,GMRES_Solver>>((solver));
+  auto bfgs_gmres = std::make_shared<BFGS<Vec, Mat, GMRES_Solver>>((solver));
 
   auto suite = Tests::TestSuite<Vec, Mat>();
 

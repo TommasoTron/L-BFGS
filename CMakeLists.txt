@@ -9,11 +9,6 @@ add_compile_options(-Wall -Wextra)
 
 find_package(Eigen3 REQUIRED)
 
-add_executable(main.o src/main.cpp)
-add_executable(test.o tests/main.cpp)
-
-target_link_libraries(main.o PRIVATE Eigen3::Eigen)
-target_link_libraries(test.o PRIVATE Eigen3::Eigen)
-
-target_include_directories(main.o PRIVATE ${CMAKE_SOURCE_DIR}/lib)
-target_include_directories(test.o PRIVATE ${CMAKE_SOURCE_DIR}/lib)
+add_executable(test tests/main.cpp)
+target_link_libraries(test PRIVATE Eigen3::Eigen)
+target_include_directories(test PRIVATE ${CMAKE_SOURCE_DIR}/lib)

@@ -4,8 +4,6 @@
 #include <eigen3/Eigen/Cholesky>
 #include <eigen3/Eigen/Eigen>
 #include <eigen3/Eigen/IterativeLinearSolvers>
-#include <type_traits>
-
 
 /**
  * @brief Base class for iterative minimization algorithms.
@@ -17,13 +15,10 @@
 template <typename V, typename M>
 class MinimizerBase {
 private:
-    
- 
 public:
   /// Virtual destructor to allow proper cleanup in derived classes.
   virtual ~MinimizerBase() = default;
 
-   
   /**
    * @brief Get the number of iterations performed by the last solve().
    *
@@ -67,6 +62,11 @@ public:
    */
   void setInitialHessian(M b) noexcept { _B = b; }
 
+  /**
+   * @brief Set the Hessian function
+   *
+   * @param hessFun Function object returning the Hessian matrix.
+   */
   void setHessian(const HessFun<V, M> &hessFun) noexcept { _hessFun = hessFun; }
   /**
    * @brief Solve the minimization problem given an initial guess.
@@ -117,7 +117,6 @@ protected:
 
   /// Contraction factor used when shrinking the step size.
   double rho = 0.5;
-
 
   /**
    * @brief Perform a line search to find a suitable step length alpha.
@@ -175,6 +174,4 @@ protected:
     // Fallback: If no alpha is found, return the last one
     return alpha;
   }
-
-
 };
