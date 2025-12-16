@@ -1,5 +1,0 @@
-<map id="BFGS::solve" name="BFGS::solve">
-<area shape="rect" id="Node000001" title="Run the BFGS optimization method." alt="" coords="5,13,105,38"/>
-<area shape="rect" id="Node000002" href="$classMinimizerBase.html#aa0769b6918189dfe63a223fdb38dfc0a" title="Perform a line search to find a suitable step length alpha." alt="" coords="153,5,304,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,23,139,23,139,28,106,28"/>
-</map>
