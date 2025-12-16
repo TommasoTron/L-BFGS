@@ -36,16 +36,19 @@ class BFGS : public MinimizerBase<V, M> {
 protected:
   static constexpr bool UseDefaultSolver = std::is_same_v<Solver, DefaultSolverT<M>>;
 
-  /*
-    this sheningan is used because if the solver template parameter is not specified
-    we would like to instantiate a default one, so it should be a solver type such as
-    Eigen::ConjugateGradient<M>
-
-    if the solver is not specified it must be passed to the constructor as reference,
-    in this way the user specifies all the needed parameters when initializing the
-    constructor. Seems that eigen doesn't allow copy constructors so the reference is
-    needed.
-   */
+/**
+ * This shenanigan (SolverT) is used to provide
+ * a default solver type, such as Eigen::ConjugateGradient<M>, if the Solver 
+ * template parameter is not explicitly specified by the user.
+ *
+ * @note **Custom Solver Requirement:** If a custom solver is specified, it must be
+ * passed to the constructor **by reference** (e.g., const SolverType& solver)
+ * to ensure the user fully controls the solver's initialization parameters.
+ *
+ * Passing by reference is necessary because Eigen
+ * linear solvers (like GMRES) typically do not allow copy
+ * construction or assignment.
+ */
   using SolverT = typename std::conditional<
       UseDefaultSolver,
       Solver,
