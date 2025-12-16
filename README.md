@@ -77,7 +77,7 @@ make
 #### Run
 To run the test from the `build` directory:
 ```zsh
-./test.o
+./test
 ```
 
 ### Documentation
@@ -85,3 +85,87 @@ To run the test from the `build` directory:
 The full API documentation generated with Doxygen is available here:
 
 👉 [**Open the documentation**](https://amsc-25-26.github.io/lfbgs-1-lbfgs/)
+
+### Tests
+
+The test suite evaluates the performance of BFGS, L-BFGS, Newton's method, and a hybrid BFGS+GMRES variant on three benchmark optimization problems:
+
+#### 1. **Rosenbrock Function**
+
+![Rosenbrock contour plot](img/Rosenbrock_contour.svg.png)
+
+The Rosenbrock function is a classic test problem for optimization algorithms. It features a long, narrow parabolic valley that makes it challenging for algorithms to navigate efficiently.
+
+**Characteristics:**
+- Non-convex function with a global minimum at $(1, 1, \ldots, 1)$
+- Dimension tested: $n = 4$
+- Convergence criterion: gradient norm $\leq 10^{-10}$
+- Tolerance: $10^{-12}$, max iterations: $4000$
+
+---
+
+#### 2. **Ackley Function**
+
+![Ackley contour plot](img/Ackley_contour_function.svg.png)
+
+The Ackley function is a highly multimodal landscape with a single global minimum. It tests the algorithm's ability to explore and avoid being trapped in local minima.
+
+**Characteristics:**
+- Multimodal function with global minimum at the origin $(0, 0, \ldots, 0)$
+- Dimension tested: $n = 3$
+- Convergence criterion: gradient norm $\leq 10^{-9}$
+- Tolerance: $10^{-10}$, max iterations: $4000$
+
+---
+
+#### 3. **Rastrigin Function**
+
+![Rastrigin contour plot](img/Rastrigin_contour_plot.svg.png)
+
+The Rastrigin function is highly oscillatory with many local minima, providing a severe test of robustness and global convergence capabilities.
+
+**Characteristics:**
+- Highly multimodal landscape with global minimum at the origin $(0, 0, \ldots, 0)$
+- Dimension tested: $n = 500$ (large-scale problem)
+- Convergence criterion: gradient norm $\leq 10^{-8}$
+- Tolerance: $10^{-9}$, max iterations: $5000$
+- This test demonstrates the scalability of L-BFGS and memory efficiency of the algorithms
+
+---
+
+#### Test Implementation
+
+All tests are implemented in [tests/main.cpp](tests/main.cpp) and use a flexible test suite framework that allows comparing multiple solver implementations side-by-side on the same benchmark problems. The solvers are evaluated based on:
+
+- **Convergence:** Whether the gradient norm reaches the specified tolerance
+- **Solution accuracy:** How close the found solution is to the known global minimum
+- **Iteration count:** Number of iterations required to converge
+- **Memory efficiency:** Particularly important for the Rastrigin function test
+
+---
+
+#### Performance Results
+
+The table below summarizes the performance of the four solvers across the three benchmark functions:
+
+| Function | Solver | Time (μs) | Iterations | Tolerance |
+|----------|--------|-----------|-----------|-----------|
+| **Rosenbrock** | BFGS | 2,728 | 52 | $10^{-12}$ |
+| | BFGS + GMRES | 6,342 | 52 | $10^{-12}$ |
+| | L-BFGS | **1,295** | 47 | $10^{-12}$ |
+| | Newton | 18,024 | 395 | $10^{-12}$ |
+| **Ackley** | BFGS | 342 | 7 | $10^{-10}$ |
+| | BFGS + GMRES | 644 | 7 | $10^{-10}$ |
+| | L-BFGS | **80** | 5 | $10^{-10}$ |
+| | Newton | 102 | 3 | $10^{-10}$ |
+| **Rastrigin** | BFGS | 251,197 | 1 | $10^{-9}$ |
+| | BFGS + GMRES | **45,107** | 1 | $10^{-9}$ |
+| | L-BFGS | **12,260** | 1 | $10^{-9}$ |
+| | Newton | 647,068 | 3 | $10^{-9}$ |
+
+**Key Observations:**
+
+- **L-BFGS excels on Rosenbrock and Ackley functions**, being the fastest across these smooth, well-conditioned problems.
+- **BFGS + GMRES is competitive on the large-scale Rastrigin problem** ($n=500$), where the iterative solver avoids dense linear system solves.
+- **Newton's method struggles on Rastrigin**, requiring many iterations due to the oscillatory landscape and the cost of Hessian computations at each step.
+- **L-BFGS demonstrates superior scalability** on the large-scale Rastrigin test, where memory efficiency becomes critical.

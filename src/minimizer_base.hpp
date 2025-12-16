@@ -1,16 +1,20 @@
 #pragma once
 
 #include "common.hpp"
+#include <eigen3/Eigen/Cholesky>
 #include <eigen3/Eigen/Eigen>
+#include <eigen3/Eigen/IterativeLinearSolvers>
 
 /**
  * @brief Base class for iterative minimization algorithms.
  *
  * @tparam V Type used for vectors (e.g. Eigen::VectorXd).
  * @tparam M Type used for matrices (e.g. Eigen::MatrixXd).
+ * @tparam Solver type used for solver (e.g. Eigen::ConjugateGradient)
  */
 template <typename V, typename M>
 class MinimizerBase {
+private:
 public:
   /// Virtual destructor to allow proper cleanup in derived classes.
   virtual ~MinimizerBase() = default;
@@ -51,13 +55,19 @@ public:
    */
   void setTolerance(double tol) noexcept { _tol = tol; }
 
-    /**
+  /**
    * @brief Set the initial guess for the Hessian matrix
    *
    * @param b Initial Hessian guess.
    */
   void setInitialHessian(M b) noexcept { _B = b; }
 
+  /**
+   * @brief Set the Hessian function
+   *
+   * @param hessFun Function object returning the Hessian matrix.
+   */
+  void setHessian(const HessFun<V, M> &hessFun) noexcept { _hessFun = hessFun; }
   /**
    * @brief Solve the minimization problem given an initial guess.
    *
@@ -85,6 +95,8 @@ protected:
   /// Hessian guess
   M _B;
 
+  HessFun<V, M> _hessFun;
+
   /// Maximum number of iterations allowed in Armijo line search (if used).
   double armijo_max_iter = 20;
 
@@ -105,7 +117,6 @@ protected:
 
   /// Contraction factor used when shrinking the step size.
   double rho = 0.5;
-
 
   /**
    * @brief Perform a line search to find a suitable step length alpha.
