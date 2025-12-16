@@ -6,7 +6,7 @@ $$
 \min_{x \in \mathbb{R}^n} f(x),
 $$
 
-where $ f : \mathbb{R}^n \to \mathbb{R} $ is assumed to be sufficiently smooth (typically at least twice continuously differentiable).
+where $f : \mathbb{R}^n \to \mathbb{R}$ is assumed to be sufficiently smooth (typically at least twice continuously differentiable).
 A standard second-order method for this problem is **Newton’s method**, whose iteration can be written as
 
 $$
