@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['setinitialhessian_0',['setInitialHessian',['../classMinimizerBase.html#a74541618a2a7c81ff7341a978c64f6eb',1,'MinimizerBase']]],
-  ['setmaxiterations_1',['setMaxIterations',['../classMinimizerBase.html#a6e85b5c64d0c073ec8c2c7d0011d07aa',1,'MinimizerBase']]],
-  ['settolerance_2',['setTolerance',['../classMinimizerBase.html#a059d61e7f4932542f807789982ac1bdf',1,'MinimizerBase']]],
-  ['solve_3',['solve',['../classBFGS.html#aeb7ad8e284154092dc4b16c18f841c57',1,'BFGS::solve()'],['../classLBFGS.html#acc3c0cb169d832d01fe8f9ef512e8d70',1,'LBFGS::solve()'],['../classMinimizerBase.html#aabce966fc5737c8143fefaeea45e8d3e',1,'MinimizerBase::solve()']]],
-  ['statement_4',['Problem statement',['../index.html',1,'']]]
+  ['readme_2emd_29',['README.md',['../README_8md.html',1,'']]],
+  ['requires_30',['requires',['../classBFGS.html#a72c3a429ac6abfeb01549b8269a01d93',1,'BFGS::requires(UseDefaultSolver)'],['../classBFGS.html#ac1bfaf4b147ac5534a583fdda00e5367',1,'BFGS::requires(!UseDefaultSolver)']]],
+  ['rho_31',['rho',['../classMinimizerBase.html#ae63ace2e6048a73df9260fdb5bd45117',1,'MinimizerBase']]]
 ];

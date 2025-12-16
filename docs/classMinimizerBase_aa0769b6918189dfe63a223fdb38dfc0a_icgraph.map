@@ -1,7 +1,6 @@
 <map id="MinimizerBase::line_search" name="MinimizerBase::line_search">
-<area shape="rect" id="Node000001" title="Perform a line search to find a suitable step length alpha." alt="" coords="160,23,311,63"/>
-<area shape="rect" id="Node000002" href="$classBFGS.html#aeb7ad8e284154092dc4b16c18f841c57" title="Run the BFGS optimization method." alt="" coords="9,5,109,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,33,109,28,109,22,147,28"/>
-<area shape="rect" id="Node000003" href="$classLBFGS.html#acc3c0cb169d832d01fe8f9ef512e8d70" title="Perform the L&#45;BFGS optimization on the objective function f." alt="" coords="5,55,112,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,58,113,63,112,57,146,53"/>
+<area shape="rect" id="node1" title="Perform a line search to find a suitable step length alpha." alt="" coords="168,49,319,90"/>
+<area shape="rect" id="node2" href="$classBFGS.html#a037d353ea150ef231720075d5decfd44" title="Run the BFGS optimization method." alt="" coords="13,5,113,32"/>
+<area shape="rect" id="node3" href="$classLBFGS.html#acc3c0cb169d832d01fe8f9ef512e8d70" title="Perform the L&#45;BFGS optimization on the objective function f." alt="" coords="9,56,116,83"/>
+<area shape="rect" id="node4" href="$classNewton.html#a272c891f46d6446a5b8958cf6b5a6876" title="Run Newton&#39;s method with line search." alt="" coords="5,107,120,133"/>
 </map>

@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['l_20bfgs_20limited_20memory_20bfgs_0',['L-BFGS (Limited-memory BFGS)',['../index.html#autotoc_md4',1,'']]],
-  ['lbfgs_1',['LBFGS',['../classLBFGS.html',1,'']]],
-  ['lbfgs_2ehpp_2',['lbfgs.hpp',['../lbfgs_8hpp.html',1,'']]],
-  ['limited_20memory_20bfgs_3',['L-BFGS (Limited-memory BFGS)',['../index.html#autotoc_md4',1,'']]],
-  ['line_5fsearch_4',['line_search',['../classMinimizerBase.html#aa0769b6918189dfe63a223fdb38dfc0a',1,'MinimizerBase']]]
+  ['issparse_17',['isSparse',['../bfgs_8hpp.html#a79efa1b767d18349e2c4efaf42d50b4b',1,'bfgs.hpp']]],
+  ['iterations_18',['iterations',['../classMinimizerBase.html#a6adf72133a7412a671d9815674cfa15d',1,'MinimizerBase']]]
 ];

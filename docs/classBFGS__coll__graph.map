@@ -1,5 +1,4 @@
-<map id="BFGS&lt; V, M &gt;" name="BFGS&lt; V, M &gt;">
-<area shape="rect" id="Node000001" title="BFGS (Broyden–Fletcher–Goldfarb–Shanno) minimizer." alt="" coords="37,79,153,104"/>
-<area shape="rect" id="Node000002" href="$classMinimizerBase.html" title="Base class for iterative minimization algorithms." alt="" coords="5,5,184,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,44,97,79,92,79,92,44"/>
+<map id="BFGS&lt; V, M, Solver &gt;" name="BFGS&lt; V, M, Solver &gt;">
+<area shape="rect" id="node1" title="BFGS (Broyden–Fletcher–Goldfarb–Shanno) minimizer." alt="" coords="12,80,177,107"/>
+<area shape="rect" id="node2" href="$classMinimizerBase.html" title="Base class for iterative minimization algorithms." alt="" coords="5,5,184,32"/>
 </map>

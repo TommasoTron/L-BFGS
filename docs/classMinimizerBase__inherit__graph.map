@@ -1,7 +1,6 @@
 <map id="MinimizerBase&lt; V, M &gt;" name="MinimizerBase&lt; V, M &gt;">
-<area shape="rect" id="Node000001" title="Base class for iterative minimization algorithms." alt="" coords="46,5,225,31"/>
-<area shape="rect" id="Node000002" href="$classBFGS.html" title="BFGS (Broyden–Fletcher–Goldfarb–Shanno) minimizer." alt="" coords="5,79,121,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,43,77,80,73,77,112,39"/>
-<area shape="rect" id="Node000003" href="$classLBFGS.html" title="Limited&#45;memory BFGS (L&#45;BFGS) minimizer." alt="" coords="146,79,269,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="159,39,198,77,194,80,155,43"/>
+<area shape="rect" id="node1" title="Base class for iterative minimization algorithms." alt="" coords="167,5,345,32"/>
+<area shape="rect" id="node2" href="$classBFGS.html" title="BFGS (Broyden–Fletcher–Goldfarb–Shanno) minimizer." alt="" coords="5,80,171,107"/>
+<area shape="rect" id="node3" href="$classLBFGS.html" title="Limited&#45;memory BFGS (L&#45;BFGS) minimizer." alt="" coords="195,80,317,107"/>
+<area shape="rect" id="node4" href="$classNewton.html" title="Newton minimizer (full Newton) for unconstrained optimization." alt="" coords="341,80,472,107"/>
 </map>

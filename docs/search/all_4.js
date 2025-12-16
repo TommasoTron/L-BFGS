@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['documentation_0',['Documentation',['../index.html#autotoc_md9',1,'']]]
+  ['defaultsolvert_14',['DefaultSolverT',['../bfgs_8hpp.html#a4bc4fc3e330e912426aa9cf9a6c586bf',1,'bfgs.hpp']]]
 ];

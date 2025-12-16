@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['m_0',['m',['../classMinimizerBase.html#a82e4ba96cc18ba6eb5dc097c6e6858c5',1,'MinimizerBase']]],
-  ['max_5fline_5fiters_1',['max_line_iters',['../classMinimizerBase.html#a2f772242266d05b5eac185542061bec3',1,'MinimizerBase']]]
+  ['issparse_72',['isSparse',['../bfgs_8hpp.html#a79efa1b767d18349e2c4efaf42d50b4b',1,'bfgs.hpp']]]
 ];

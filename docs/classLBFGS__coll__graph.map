@@ -1,5 +1,4 @@
 <map id="LBFGS&lt; V, M &gt;" name="LBFGS&lt; V, M &gt;">
-<area shape="rect" id="Node000001" title="Limited&#45;memory BFGS (L&#45;BFGS) minimizer." alt="" coords="33,79,156,104"/>
-<area shape="rect" id="Node000002" href="$classMinimizerBase.html" title="Base class for iterative minimization algorithms." alt="" coords="5,5,184,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,44,97,79,92,79,92,44"/>
+<area shape="rect" id="node1" title="Limited&#45;memory BFGS (L&#45;BFGS) minimizer." alt="" coords="33,80,156,107"/>
+<area shape="rect" id="node2" href="$classMinimizerBase.html" title="Base class for iterative minimization algorithms." alt="" coords="5,5,184,32"/>
 </map>
