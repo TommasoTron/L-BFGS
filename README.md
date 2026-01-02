@@ -149,10 +149,6 @@ The table below summarizes the performance of the four solvers across the three 
 
 | Function | Solver | Time (μs) | Iterations | Tolerance |
 |----------|--------|-----------|-----------|-----------|
-| **Rosenbrock** | BFGS | 2,728 | 52 | $10^{-12}$ |
-| | BFGS + GMRES | 6,342 | 52 | $10^{-12}$ |
-| | L-BFGS | **1,295** | 47 | $10^{-12}$ |
-| | Newton | 18,024 | 395 | $10^{-12}$ |
 | **Ackley** | BFGS | 342 | 7 | $10^{-10}$ |
 | | BFGS + GMRES | 644 | 7 | $10^{-10}$ |
 | | L-BFGS | **80** | 5 | $10^{-10}$ |
